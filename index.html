@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inquiry Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 24px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .field { margin-bottom: 22px; }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+
+    label .optional {
+      font-weight: 400;
+      color: #999;
+      font-size: 13px;
+    }
+
+    /* Toggle buttons */
+    .toggle-group {
+      display: flex;
+      background: #f0f0f0;
+      border-radius: 12px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      background: transparent;
+      color: #888;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active-pink {
+      background: linear-gradient(135deg, #4f8ef7, #1a4fd6);
+      color: white;
+      box-shadow: 0 2px 8px rgba(79,142,247,0.35);
+    }
+
+    .toggle-btn.active-yellow {
+      background: linear-gradient(135deg, #4f8ef7, #1a4fd6);
+      color: white;
+      box-shadow: 0 2px 8px rgba(79,142,247,0.35);
+    }
+
+    /* Inputs */
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      background: white;
+      color: #1a1a1a;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #4f8ef7;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #bbb;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    /* Checkbox */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      accent-color: #f953c6;
+      flex-shrink: 0;
+    }
+
+    .checkbox-row span {
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* Info box */
+    .info-box {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .info-box .icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    .info-box p {
+      font-size: 13px;
+      color: #166534;
+      line-height: 1.5;
+    }
+
+    /* Submit button */
+    .btn-wa {
+      width: 100%;
+      padding: 16px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-wa:hover { background: #1ebe5d; }
+    .btn-wa:active { transform: scale(0.98); }
+
+    .btn-wa svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- Event Type -->
+  <div class="field">
+    <label>Event Type</label>
+    <div class="toggle-group">
+      <button class="toggle-btn active-pink" id="btn-wedding" onclick="selectType('Wedding')">Wedding</button>
+      <button class="toggle-btn" id="btn-event" onclick="selectType('Event')">Event</button>
+    </div>
+  </div>
+
+  <!-- Date -->
+  <div class="field">
+    <label>Date</label>
+    <input type="date" id="eventDate">
+    <label class="checkbox-row" id="noDateLabel">
+      <input type="checkbox" id="noDate" onchange="toggleDate()">
+      <span>I'm not sure about the date yet</span>
+    </label>
+  </div>
+
+  <!-- Session -->
+  <div class="field">
+    <label>Session</label>
+    <div class="toggle-group">
+      <button class="toggle-btn active-yellow" id="btn-day" onclick="selectSession('Day')">☀️ Day</button>
+      <button class="toggle-btn" id="btn-night" onclick="selectSession('Night')">🌙 Night</button>
+    </div>
+  </div>
+
+  <!-- Venue -->
+  <div class="field">
+    <label>Venue</label>
+    <input type="text" id="venue" placeholder="Pavilion Bukit Jalil">
+  </div>
+
+  <!-- Email -->
+  <div class="field">
+    <label>Email <span class="optional">(Optional)</span></label>
+    <input type="email" id="email" placeholder="you@example.com">
+  </div>
+
+  <!-- Note -->
+  <div class="field">
+    <label>Note <span class="optional">(Optional)</span></label>
+    <textarea id="note" placeholder="Any special requests or additional info..."></textarea>
+  </div>
+
+  <!-- Language -->
+  <div class="field">
+    <label>Preferred Communication Language</label>
+    <div class="toggle-group">
+      <button class="toggle-btn" id="btn-malay" onclick="selectLang('Malay')">Malay</button>
+      <button class="toggle-btn active-pink" id="btn-english" onclick="selectLang('English')">English</button>
+      <button class="toggle-btn" id="btn-chinese" onclick="selectLang('中文')">中文</button>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="info-box">
+    <span class="icon">ℹ️</span>
+    <p>When you click, WhatsApp will open with your details already filled in. Just hit send!</p>
+  </div>
+
+  <!-- Button -->
+  <button class="btn-wa" id="waBtn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    Continue in WhatsApp
+  </button>
+
+</div>
+
+<script>
+  // ⚙️ 改成你的 WhatsApp 號碼
+  const WHATSAPP_NUMBER = '601157827088';
+
+  let selectedType = 'Wedding';
+  let selectedSession = 'Day';
+  let selectedLang = 'English';
+
+  function selectLang(lang) {
+    selectedLang = lang;
+    document.getElementById('btn-malay').className = 'toggle-btn' + (lang === 'Malay' ? ' active-pink' : '');
+    document.getElementById('btn-english').className = 'toggle-btn' + (lang === 'English' ? ' active-pink' : '');
+    document.getElementById('btn-chinese').className = 'toggle-btn' + (lang === '中文' ? ' active-pink' : '');
+  }
+
+  function selectType(type) {
+    selectedType = type;
+    document.getElementById('btn-wedding').className = 'toggle-btn' + (type === 'Wedding' ? ' active-pink' : '');
+    document.getElementById('btn-event').className = 'toggle-btn' + (type === 'Event' ? ' active-pink' : '');
+  }
+
+  function selectSession(session) {
+    selectedSession = session;
+    document.getElementById('btn-day').className = 'toggle-btn' + (session === 'Day' ? ' active-yellow' : '');
+    document.getElementById('btn-night').className = 'toggle-btn' + (session === 'Night' ? ' active-yellow' : '');
+  }
+
+  function toggleDate() {
+    const cb = document.getElementById('noDate');
+    const dateInput = document.getElementById('eventDate');
+    dateInput.disabled = cb.checked;
+    if (cb.checked) dateInput.value = '';
+  }
+
+  document.getElementById('waBtn').addEventListener('click', function () {
+    const noDate  = document.getElementById('noDate').checked;
+    const date    = document.getElementById('eventDate').value;
+    const venue   = document.getElementById('venue').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const note    = document.getElementById('note').value.trim();
+
+    const dateStr = noDate ? "Not sure yet" : (date || "Not specified");
+
+    const message =
+`*New Inquiry*
+---------------------------
+*Event Type:* ${selectedType}
+*Date:* ${dateStr}
+*Session:* ${selectedSession}
+*Venue:* ${venue || '-'}
+*Email:* ${email || '-'}
+*Language:* ${selectedLang}
+*Note:* ${note || '-'}`;
+
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+    window.open(url, '_blank');
+  });
+</script>
+</body>
+</html>
