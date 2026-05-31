@@ -10,7 +10,10 @@
 
     body {
       font-family: 'DM Sans', sans-serif;
-      background: #f5f5f5;
+      background-image: url('https://loveastudiomy.github.io/Inquiry/Lovea%20Design%20(1).png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -19,12 +22,20 @@
     }
 
     .card {
-      background: white;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
       border-radius: 24px;
       padding: 32px 24px;
       width: 100%;
       max-width: 460px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 24px auto;
+      max-width: 200px;
+      height: auto;
     }
 
     .field { margin-bottom: 22px; }
@@ -185,6 +196,9 @@
 <body>
 <div class="card">
 
+  <!-- Logo -->
+  <img class="logo" src="https://loveastudiomy.github.io/Inquiry/LOVEA%20PHOTOBOOTH%20(3).png" alt="Lovea Photobooth Logo">
+
   <!-- Event Type -->
   <div class="field">
     <label>Event Type</label>
@@ -259,7 +273,7 @@
 
 <script>
   // ⚙️ 改成你的 WhatsApp 號碼
-  const WHATSAPP_NUMBER = '601157827088';
+  const WHATSAPP_NUMBER = '60184031784';
 
   let selectedType = 'Wedding';
   let selectedSession = 'Day';
