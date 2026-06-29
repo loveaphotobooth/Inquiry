@@ -199,6 +199,12 @@
   <!-- Logo -->
   <img class="logo" src="https://loveaphotobooth.github.io/Inquiry/LOVEA%20PHOTOBOOTH%20%2812%29.png" alt="Lovea Photobooth Logo">
 
+  <!-- Name / Salutation -->
+  <div class="field">
+    <label>Name</label>
+    <input type="text" id="name" placeholder="How should I address you?">
+  </div>
+
   <!-- Event Type -->
   <div class="field">
     <label>Event Type</label>
@@ -272,7 +278,6 @@
 </div>
 
 <script>
-  // ⚙️ 改成你的 WhatsApp 號碼
   const WHATSAPP_NUMBER = '601157827088';
 
   let selectedType = 'Wedding';
@@ -306,6 +311,7 @@
   }
 
   document.getElementById('waBtn').addEventListener('click', function () {
+    const name    = document.getElementById('name').value.trim();
     const noDate  = document.getElementById('noDate').checked;
     const date    = document.getElementById('eventDate').value;
     const venue   = document.getElementById('venue').value.trim();
@@ -317,6 +323,7 @@
     const message =
 `*New Inquiry*
 ---------------------------
+*Name:* ${name || '-'}
 *Event Type:* ${selectedType}
 *Date:* ${dateStr}
 *Session:* ${selectedSession}
